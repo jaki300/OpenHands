@@ -34,7 +34,7 @@ RUN if [ ! -d /openhands/miniforge3 ]; then \
     fi
 
 # Install Python and Poetry
-RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.11 -y
+RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.12 -y
 # ================================================================
 # END: Build Runtime Image from Scratch
 # ================================================================
@@ -51,7 +51,7 @@ COPY ./code /openhands/code
 # 2. Install playwright and chromium
 # 3. Clear poetry, apt, mamba caches
 RUN cd /openhands/code && \
-    /openhands/miniforge3/bin/mamba run -n base poetry env use python3.11 && \
+    /openhands/miniforge3/bin/mamba run -n base poetry env use python3.12 && \
     /openhands/miniforge3/bin/mamba run -n base poetry install --only main,runtime --no-interaction --no-root && \
     apt-get update && \
     /openhands/miniforge3/bin/mamba run -n base poetry run pip install playwright && \

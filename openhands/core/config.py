@@ -206,7 +206,7 @@ class SandboxConfig:
 
     api_hostname: str = 'localhost'
     api_key: str | None = None
-    base_container_image: str = 'nikolaik/python-nodejs:python3.11-nodejs22'  # default to nikolaik/python-nodejs:python3.11-nodejs22 for eventstream runtime
+    base_container_image: str = 'nikolaik/python-nodejs:python3.12-nodejs22'  # default to nikolaik/python-nodejs:python3.12-nodejs22 for eventstream runtime
     runtime_container_image: str | None = None
     user_id: int = os.getuid() if hasattr(os, 'getuid') else 1000
     timeout: int = 120

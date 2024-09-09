@@ -63,7 +63,7 @@ def test_put_source_code_to_dir(temp_dir):
 def test_docker_build_folder(temp_dir):
     prep_docker_build_folder(
         temp_dir,
-        base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+        base_image='nikolaik/python-nodejs:python3.12-nodejs22',
         skip_init=False,
     )
 
@@ -82,14 +82,14 @@ def test_docker_build_folder(temp_dir):
 def test_hash_folder_same(temp_dir):
     dir_hash_1 = prep_docker_build_folder(
         temp_dir,
-        base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+        base_image='nikolaik/python-nodejs:python3.12-nodejs22',
         skip_init=False,
     )
 
     with tempfile.TemporaryDirectory() as temp_dir_2:
         dir_hash_2 = prep_docker_build_folder(
             temp_dir_2,
-            base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+            base_image='nikolaik/python-nodejs:python3.12-nodejs22',
             skip_init=False,
         )
     assert dir_hash_1 == dir_hash_2
@@ -98,14 +98,14 @@ def test_hash_folder_same(temp_dir):
 def test_hash_folder_diff_init(temp_dir):
     dir_hash_1 = prep_docker_build_folder(
         temp_dir,
-        base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+        base_image='nikolaik/python-nodejs:python3.12-nodejs22',
         skip_init=False,
     )
 
     with tempfile.TemporaryDirectory() as temp_dir_2:
         dir_hash_2 = prep_docker_build_folder(
             temp_dir_2,
-            base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+            base_image='nikolaik/python-nodejs:python3.12-nodejs22',
             skip_init=True,
         )
     assert dir_hash_1 != dir_hash_2
@@ -114,7 +114,7 @@ def test_hash_folder_diff_init(temp_dir):
 def test_hash_folder_diff_image(temp_dir):
     dir_hash_1 = prep_docker_build_folder(
         temp_dir,
-        base_image='nikolaik/python-nodejs:python3.11-nodejs22',
+        base_image='nikolaik/python-nodejs:python3.12-nodejs22',
         skip_init=False,
     )
 
@@ -137,7 +137,7 @@ def test_generate_dockerfile_scratch():
     assert 'apt-get update' in dockerfile_content
     assert 'apt-get install -y wget sudo apt-utils' in dockerfile_content
     assert (
-        'RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.11 -y'
+        'RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.12 -y'
         in dockerfile_content
     )
 
@@ -159,7 +159,7 @@ def test_generate_dockerfile_skip_init():
     # These commands SHOULD NOT include in the dockerfile if skip_init is True
     assert 'RUN apt update && apt install -y wget sudo' not in dockerfile_content
     assert (
-        'RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.11 -y'
+        'RUN /openhands/miniforge3/bin/mamba install conda-forge::poetry python=3.12 -y'
         not in dockerfile_content
     )
 
@@ -179,12 +179,12 @@ def test_get_runtime_image_repo_and_tag_eventstream():
         and img_tag == f'{OH_VERSION}_image_debian_tag_11'
     )
 
-    base_image = 'nikolaik/python-nodejs:python3.11-nodejs22'
+    base_image = 'nikolaik/python-nodejs:python3.12-nodejs22'
     img_repo, img_tag = get_runtime_image_repo_and_tag(base_image)
     assert (
         img_repo == f'{get_runtime_image_repo()}'
         and img_tag
-        == f'{OH_VERSION}_image_nikolaik_s_python-nodejs_tag_python3.11-nodejs22'
+        == f'{OH_VERSION}_image_nikolaik_s_python-nodejs_tag_python3.12-nodejs22'
     )
 
     base_image = 'ubuntu'
